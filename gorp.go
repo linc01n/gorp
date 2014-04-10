@@ -693,13 +693,18 @@ func readStructColumns(t reflect.Type) (cols []*ColumnMap, version *ColumnMap) {
 			}
 		} else {
 			columnName := f.Tag.Get("db")
+			is_unique := false
 			if columnName == "" {
 				columnName = f.Name
+			}
+			if columnName == "+" {
+				columnName = f.Name
+				is_unique = true
 			}
 			cm := &ColumnMap{
 				ColumnName: columnName,
 				Transient:  columnName == "-",
-				Unique:     columnName == "+",
+				Unique:     is_unique,
 				fieldName:  f.Name,
 				gotype:     f.Type,
 			}
