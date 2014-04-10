@@ -308,10 +308,11 @@ func (m MySQLDialect) ToSqlType(val reflect.Type, maxsize int, isAutoIncr bool) 
 		return "datetime"
 	}
 
-	if maxsize < 1 {
-		maxsize = 255
+	if maxsize > 0 {
+		return fmt.Sprintf("varchar(%d)", maxsize)
+	} else {
+		return "text"
 	}
-	return fmt.Sprintf("varchar(%d)", maxsize)
 }
 
 // Returns auto_increment
