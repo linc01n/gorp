@@ -699,6 +699,7 @@ func readStructColumns(t reflect.Type) (cols []*ColumnMap, version *ColumnMap) {
 			cm := &ColumnMap{
 				ColumnName: columnName,
 				Transient:  columnName == "-",
+				Unique:     columnName == "+",
 				fieldName:  f.Name,
 				gotype:     f.Type,
 			}
